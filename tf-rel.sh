@@ -2,12 +2,12 @@
 
 #######################################################
 # Script Usage:
-# By default, this script runs in 'manual mode' (tfrel function).
+# By default, this script runs in 'manual mode' (tf-rel function).
 #
 # Options:
-#   -m or --manual-mode   : (default behavior) Executes the tfrel function.
-#   -a or --append        : Appends the tfrel function to the user's .bashrc.
-#   -v or --version X.X.X : Sets a specific version tag when running tfrel.
+#   -m or --manual-mode   : (default behavior) Executes the tf-rel function.
+#   -a or --append        : Appends the tf-rel function to the user's .bashrc.
+#   -v or --version X.X.X : Sets a specific version tag when running tf-rel.
 #                           Replace 'X.X.X' with the desired version number.
 #######################################################
 
@@ -19,7 +19,7 @@ function stfo () {
     curl https://raw.githubusercontent.com/cyber-scot/utilities/main/terraform/helpers/tf-sort.sh | bash -s -- outputs.tf outputs.tf
 }
 
-function tfrel() {
+function tf-rel() {
     print_success() {
         lightcyan='\033[1;36m'
         nocolor='\033[0m'
@@ -70,8 +70,8 @@ function tfrel() {
 function append_to_bashrc() {
     echo "Appending functions to .bashrc"
     echo "" >>~/.bashrc
-    echo "# Define tfrel function" >>~/.bashrc
-    declare -f tfrel >>~/.bashrc
+    echo "# Define tf-rel function" >>~/.bashrc
+    declare -f tf-rel >>~/.bashrc
 }
 
 # Flag to determine if any option is set
@@ -107,5 +107,5 @@ done
 
 # If no recognized option is set, run in manual mode by default
 if [ "$OPTION_SET" = false ]; then
-    tfrel
+    tf-rel
 fi
