@@ -1,7 +1,8 @@
-variable "name" {
+variable "location" {
   type        = string
-  description = "The name of the resource"
+  description = "The location (region) the resource should be put in, e.g. uksouth"
 }
+
 
 variable "lock_level" {
   type        = string
@@ -12,10 +13,12 @@ variable "lock_level" {
   }
 }
 
-variable "location" {
+
+variable "name" {
   type        = string
-  description = "The location (region) the resource should be put in, e.g. uksouth"
+  description = "The name of the resource"
 }
+
 
 variable "tags" {
   type        = map(string)
