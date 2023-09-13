@@ -46,4 +46,11 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_rg_id"></a> [rg\_id](#output\_rg\_id) | Resource group generated id |
+| <a name="output_rg_location"></a> [rg\_location](#output\_rg\_location) | Resource group location (region) |
+| <a name="output_rg_lock_id"></a> [rg\_lock\_id](#output\_rg\_lock\_id) | The id of the resource group lock |
+| <a name="output_rg_lock_level"></a> [rg\_lock\_level](#output\_rg\_lock\_level) | The lock-level of the resource group lock |
+| <a name="output_rg_name"></a> [rg\_name](#output\_rg\_name) | The name of the resource group |
+| <a name="output_rg_tags"></a> [rg\_tags](#output\_rg\_tags) | The tags of the resource group |
