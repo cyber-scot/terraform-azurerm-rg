@@ -35,7 +35,6 @@ done
 echo "All packages are installed"
 
 # Environment Variables
-terraform_workspace="prd"
 checkov_skipped_tests=""
 terraform_compliance_policy_path="git:https://github.com/cyber-scot/utilities.git//terraform/helpers/terraform-compliance-tests?ref=main"
 terraform_version="1.5.5"
@@ -54,7 +53,6 @@ setup_tfenv() {
 # Terraform Init, Validate & Plan
 terraform_plan() {
     terraform init && \
-    terraform workspace new ${terraform_workspace} || terraform workspace select ${terraform_workspace}
     terraform validate && \
     terraform fmt -recursive && \
     terraform plan -out "$(pwd)/tfplan.plan"

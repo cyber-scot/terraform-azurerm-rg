@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "this" {
 }
 
 resource "azurerm_management_lock" "rg_lock" {
-  count      = length(var.lock_level) > 0 ? 1 : 0
+  count      = var.lock_level != null && var.lock_level != "" ? 1 : 0
   name       = "lock-${var.name}"
   scope      = azurerm_resource_group.this.id
   lock_level = var.lock_level
