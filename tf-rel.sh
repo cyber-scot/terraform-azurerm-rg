@@ -58,7 +58,7 @@ function tf-rel() {
     terraform fmt -recursive
     terraform-docs markdown . >> README.md
     stfi
-    stfo
+#    stfo
     git add --all
     git commit -m "Update module"
     git push
