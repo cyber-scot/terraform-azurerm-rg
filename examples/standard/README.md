@@ -1,9 +1,10 @@
 
 ```hcl
 module "test" {
-  source = "../../"
+  source = "cyber-scot/rg/azurerm"
 
   name     = "rg-${var.short}-${var.loc}-${var.env}-01"
+  lock_level  = "CanNotDelete"
   location = local.location
   tags     = local.tags
 }
@@ -24,7 +25,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_test"></a> [test](#module\_test) | ../../ | n/a |
+| <a name="module_test"></a> [test](#module\_test) | cyber-scot/rg/azurerm | n/a |
 
 ## Resources
 
