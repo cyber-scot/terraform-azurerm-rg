@@ -3,6 +3,7 @@ pr: none
 
 parameters:
   - name: VARIABLE_GROUP_NAME
+    displayName: "The name of the key vault variable group or variable group containing Azure secrets"
     type: string
     default: 'kv-cscot-uks-prd-mgmt-01'
   - name: poolName
