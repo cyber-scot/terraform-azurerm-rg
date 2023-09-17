@@ -154,6 +154,20 @@ stages:
           checkov_skipped_tests: $(checkov_skipped_tests)
 
       - bash: |
+          terraform apply -auto-approve tfplan.plan
+        displayName: 'Terraform Apply'
+        workingDirectory: $(working_directory)
+        env:
+          TF_VAR_env: $(env)
+          TF_VAR_short: $(short)
+          TF_VAR_loc: $(loc)
+          ARM_CLIENT_ID: $(SpokeSvpClientId)
+          ARM_CLIENT_SECRET: $(SpokeSvpClientSecret)
+          ARM_TENANT_ID: $(SpokeTenantId)
+          ARM_SUBSCRIPTION_ID: $(SpokeSubId)
+          ARM_USE_AZUREAD: 'true'
+
+      - bash: |
           rm -rf tfplan*
         displayName: 'Cleanup tfplan'
         workingDirectory: $(working_directory)
@@ -259,6 +273,15 @@ stages:
           terraform apply -auto-approve tfplan.plan
         displayName: 'Terraform Apply'
         workingDirectory: $(working_directory)
+        env:
+          TF_VAR_env: $(env)
+          TF_VAR_short: $(short)
+          TF_VAR_loc: $(loc)
+          ARM_CLIENT_ID: $(SpokeSvpClientId)
+          ARM_CLIENT_SECRET: $(SpokeSvpClientSecret)
+          ARM_TENANT_ID: $(SpokeTenantId)
+          ARM_SUBSCRIPTION_ID: $(SpokeSubId)
+          ARM_USE_AZUREAD: 'true'
 
       - bash: |
           rm -rf tfplan*
