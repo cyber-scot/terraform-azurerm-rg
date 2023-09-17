@@ -80,24 +80,7 @@ stages:
             echo "terraform_tfenv_version is set, installing terraform version ${terraform_tfenv_version}" && \
             brew install tfenv@${terraform_tfenv_version}
           fi
-          if [ -z "${terraform_tfsec_version}" ]; then
-            echo "terraform_tfsec_version is empty or not set., setting to latest" && export terraform_tfsec_version="latest" && \
-            brew install tfsec
-          else
-            echo "terraform_tfsec_version is set, installing terraform version ${terraform_tfsec_version}" && \
-            brew install tfsec@${terraform_tfsec_version}
-          fi
-          if [ -z "${terraform_compliance_version}" ]; then
-            echo "terraform_compliance_version is empty or not set., setting to latest" && pip3 install terraform-compliance
-          else
-            echo "terraform_compliance_version is set, installing terraform version ${terraform_tfsec_version}" && pip3 install terraform-compliance==${terraform_compliance_version}
-          fi
-          if [ -z "${terraform_checkov_version}" ]; then
-            echo "terraform_checkov_version is empty or not set., setting to latest" && pip3 install checkov
-          else
-            echo "terraform_checkov_version is set, installing terraform version ${terraform_tfsec_version}" && pip3 install checkov==${terraform_checkov_version}
-          fi
-        displayName: 'Install Tfenv, TfSec, Terraform-Compliance & CheckOv'
+        displayName: 'Install Tfenv'
         workingDirectory: $(working_directory)
 
       - bash: |
@@ -119,10 +102,8 @@ stages:
           -backend-config="container_name=$(ARM_BACKEND_BLOB_CONTAINER_NAME }}" \
           -backend-config="key=$(ARM_BACKEND_STATE_KEY }}" && \
           terraform validate && \
-          terraform fmt -check && \
-          terraform plan -out tfplan.plan
-          terraform show -json tfplan.plan | tee tfplan.json >/dev/null
-        displayName: 'Terraform Init, Validate & Plan'
+          terraform plan -destroy -out tfplan.plan
+        displayName: 'Terraform Init, Validate & Plan (Destroy)'
         workingDirectory: $(working_directory)
         env:
           TF_VAR_env: $(env)
@@ -135,27 +116,8 @@ stages:
           ARM_USE_AZUREAD: 'true'
 
       - bash: |
-          terraform-compliance -p tfplan.json -f "${terraform_compliance_policy_path}"
-        displayName: 'Terraform-Compliance Check'
-        workingDirectory: $(working_directory)
-        env:
-          terraform_compliance_policy_path: $(terraform_compliance_policy_path)
-
-      - bash: |
-          tfsec . --force-all-dirs
-        displayName: 'TFSec Check'
-        workingDirectory: $(working_directory)
-
-      - bash: |
-          checkov -f tfplan.json --skip-check "${checkov_skipped_tests}"
-        displayName: 'CheckOv Check'
-        workingDirectory: $(working_directory)
-        env:
-          checkov_skipped_tests: $(checkov_skipped_tests)
-
-      - bash: |
           terraform apply -auto-approve tfplan.plan
-        displayName: 'Terraform Apply'
+        displayName: 'Terraform Apply (Destroy)'
         workingDirectory: $(working_directory)
         env:
           TF_VAR_env: $(env)
@@ -196,23 +158,6 @@ stages:
             echo "terraform_tfenv_version is set, installing terraform version ${terraform_tfenv_version}" && \
             brew install tfenv@${terraform_tfenv_version}
           fi
-          if [ -z "${terraform_tfsec_version}" ]; then
-            echo "terraform_tfsec_version is empty or not set., setting to latest" && export terraform_tfsec_version="latest" && \
-            brew install tfsec
-          else
-            echo "terraform_tfsec_version is set, installing terraform version ${terraform_tfsec_version}" && \
-            brew install tfsec@${terraform_tfsec_version}
-          fi
-          if [ -z "${terraform_compliance_version}" ]; then
-            echo "terraform_compliance_version is empty or not set., setting to latest" && pip3 install terraform-compliance
-          else
-            echo "terraform_compliance_version is set, installing terraform version ${terraform_tfsec_version}" && pip3 install terraform-compliance==${terraform_compliance_version}
-          fi
-          if [ -z "${terraform_checkov_version}" ]; then
-            echo "terraform_checkov_version is empty or not set., setting to latest" && pip3 install checkov
-          else
-            echo "terraform_checkov_version is set, installing terraform version ${terraform_tfsec_version}" && pip3 install checkov==${terraform_checkov_version}
-          fi
         displayName: 'Install Tfenv, TfSec, Terraform-Compliance & CheckOv'
         workingDirectory: $(working_directory)
 
@@ -236,9 +181,8 @@ stages:
           -backend-config="key=$(ARM_BACKEND_STATE_KEY)" && \
           terraform validate && \
           terraform fmt -check && \
-          terraform plan -out tfplan.plan
-          terraform show -json tfplan.plan | tee tfplan.json >/dev/null
-        displayName: 'Terraform Init, Validate & Plan'
+          terraform plan -destroy -out tfplan.plan
+        displayName: 'Terraform Init, Validate & Plan (Destroy)'
         workingDirectory: $(working_directory)
         env:
           TF_VAR_env: $(env)
@@ -251,27 +195,8 @@ stages:
           ARM_USE_AZUREAD: 'true'
 
       - bash: |
-          terraform-compliance -p tfplan.json -f "${terraform_compliance_policy_path}"
-        displayName: 'Terraform-Compliance Check'
-        workingDirectory: $(working_directory)
-        env:
-          terraform_compliance_policy_path: $(terraform_compliance_policy_path)
-
-      - bash: |
-          tfsec . --force-all-dirs
-        displayName: 'TFSec Check'
-        workingDirectory: $(working_directory)
-
-      - bash: |
-          checkov -f tfplan.json --skip-check "${checkov_skipped_tests}"
-        displayName: 'CheckOv Check'
-        workingDirectory: $(working_directory)
-        env:
-          checkov_skipped_test: $(checkov_skipped_tests)
-
-      - bash: |
           terraform apply -auto-approve tfplan.plan
-        displayName: 'Terraform Apply'
+        displayName: 'Terraform Apply (Destroy)'
         workingDirectory: $(working_directory)
         env:
           TF_VAR_env: $(env)

@@ -97,7 +97,7 @@ stages:
           else
             echo "terraform_checkov_version is set, installing terraform version ${terraform_tfsec_version}" && pip3 install checkov==${terraform_checkov_version}
           fi
-        displayName: 'Install Tfsev, TfSec, Terraform-Compliance & CheckOv'
+        displayName: 'Install Tfenv, TfSec, Terraform-Compliance & CheckOv'
         workingDirectory: $(working_directory)
 
       - bash: |
@@ -199,7 +199,7 @@ stages:
           else
             echo "terraform_checkov_version is set, installing terraform version ${terraform_tfsec_version}" && pip3 install checkov==${terraform_checkov_version}
           fi
-        displayName: 'Install Tfsev, TfSec, Terraform-Compliance & CheckOv'
+        displayName: 'Install Tfenv, TfSec, Terraform-Compliance & CheckOv'
         workingDirectory: $(working_directory)
 
       - bash: |
