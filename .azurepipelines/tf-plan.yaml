@@ -138,6 +138,8 @@ stages:
           terraform-compliance -p tfplan.json -f "${terraform_compliance_policy_path}"
         displayName: 'Terraform-Compliance Check'
         workingDirectory: $(working_directory)
+        env:
+          terraform_compliance_policy_path: $(terraform_compliance_policy_path)
 
       - bash: |
           tfsec . --force-all-dirs
@@ -148,6 +150,8 @@ stages:
           checkov -f tfplan.json --skip-check "${checkov_skipped_tests}"
         displayName: 'CheckOv Check'
         workingDirectory: $(working_directory)
+        env:
+          checkov_skipped_tests: $(checkov_skipped_tests)
 
       - bash: |
           rm -rf tfplan*
@@ -236,6 +240,8 @@ stages:
           terraform-compliance -p tfplan.json -f "${terraform_compliance_policy_path}"
         displayName: 'Terraform-Compliance Check'
         workingDirectory: $(working_directory)
+        env:
+          terraform_compliance_policy_path: $(terraform_compliance_policy_path)
 
       - bash: |
           tfsec . --force-all-dirs
@@ -246,6 +252,8 @@ stages:
           checkov -f tfplan.json --skip-check "${checkov_skipped_tests}"
         displayName: 'CheckOv Check'
         workingDirectory: $(working_directory)
+        env:
+          checkov_skipped_test: $(checkov_skipped_tests)
 
       - bash: |
           rm -rf tfplan*
