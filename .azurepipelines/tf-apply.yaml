@@ -256,7 +256,7 @@ stages:
           checkov_skipped_test: $(checkov_skipped_tests)
 
       - bash: |
-          terrform apply -auto-approve tfplan.plan
+          terraform apply -auto-approve tfplan.plan
         displayName: 'Terraform Apply'
         workingDirectory: $(working_directory)
 
