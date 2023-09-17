@@ -48,7 +48,7 @@ variables:
   - name: ARM_BACKEND_BLOB_CONTAINER_NAME
     value: $(SpokeSaBlobContainerName)
   - name: ARM_BACKEND_STATE_KEY
-    value: '${{ variables.short }}-${{ variables.loc }}-${{ variables.env }}-${{ variables.project_name }}.terraform.tfstate'
+    value: '$(short)-$(loc)-$(env)-$(project_name).terraform.tfstate'
 
   - group: ${{ parameters.VARIABLE_GROUP_NAME }}
 
@@ -115,9 +115,9 @@ stages:
 
       - bash: |
           terraform init \
-          -backend-config="storage_account_name=${{ variables.ARM_BACKEND_STORAGE_ACCOUNT }}" \
-          -backend-config="container_name=${{ variables.ARM_BACKEND_BLOB_CONTAINER_NAME }}" \
-          -backend-config="key=${{ variables.ARM_BACKEND_STATE_KEY }}" && \
+          -backend-config="storage_account_name=$(ARM_BACKEND_STORAGE_ACCOUNT }}" \
+          -backend-config="container_name=$(ARM_BACKEND_BLOB_CONTAINER_NAME }}" \
+          -backend-config="key=$(ARM_BACKEND_STATE_KEY }}" && \
           terraform validate && \
           terraform fmt -check && \
           terraform plan -out tfplan.plan
@@ -125,13 +125,13 @@ stages:
         displayName: 'Terraform Init, Validate & Plan'
         workingDirectory: $(working_directory)
         env:
-          TF_VAR_env: ${{ variables.env }}
-          TF_VAR_short: ${{ variables.short }}
-          TF_VAR_loc: ${{ variables.loc }}
-          ARM_CLIENT_ID: ${{ variables.SpokeSvpClientId }}
-          ARM_CLIENT_SECRET: ${{ variables.SpokeSvpClientSecret }}
-          ARM_TENANT_ID: ${{ variables.SpokeTenantId }}
-          ARM_SUBSCRIPTION_ID: ${{ variables.SpokeSubId }}
+          TF_VAR_env: $(env)
+          TF_VAR_short: $(short)
+          TF_VAR_loc: $(loc)
+          ARM_CLIENT_ID: $(SpokeSvpClientId)
+          ARM_CLIENT_SECRET: $(SpokeSvpClientSecret)
+          ARM_TENANT_ID: $(SpokeTenantId)
+          ARM_SUBSCRIPTION_ID: $(SpokeSubId)
           ARM_USE_AZUREAD: 'true'
 
       - bash: |
@@ -213,9 +213,9 @@ stages:
 
       - bash: |
           terraform init \
-          -backend-config="storage_account_name=${{ variables.ARM_BACKEND_STORAGE_ACCOUNT }}" \
-          -backend-config="container_name=${{ variables.ARM_BACKEND_BLOB_CONTAINER_NAME }}" \
-          -backend-config="key=${{ variables.ARM_BACKEND_STATE_KEY }}" && \
+          -backend-config="storage_account_name=$(ARM_BACKEND_STORAGE_ACCOUNT)" \
+          -backend-config="container_name=$(ARM_BACKEND_BLOB_CONTAINER_NAME)" \
+          -backend-config="key=$(ARM_BACKEND_STATE_KEY)" && \
           terraform validate && \
           terraform fmt -check && \
           terraform plan -out tfplan.plan
@@ -223,13 +223,13 @@ stages:
         displayName: 'Terraform Init, Validate & Plan'
         workingDirectory: $(working_directory)
         env:
-          TF_VAR_env: ${{ variables.env }}
-          TF_VAR_short: ${{ variables.short }}
-          TF_VAR_loc: ${{ variables.loc }}
-          ARM_CLIENT_ID: ${{ variables.SpokeSvpClientId }}
-          ARM_CLIENT_SECRET: ${{ variables.SpokeSvpClientSecret }}
-          ARM_TENANT_ID: ${{ variables.SpokeTenantId }}
-          ARM_SUBSCRIPTION_ID: ${{ variables.SpokeSubId }}
+          TF_VAR_env: $(env)
+          TF_VAR_short: $(short)
+          TF_VAR_loc: $(loc)
+          ARM_CLIENT_ID: $(SpokeSvpClientId)
+          ARM_CLIENT_SECRET: $(SpokeSvpClientSecret)
+          ARM_TENANT_ID: $(SpokeTenantId)
+          ARM_SUBSCRIPTION_ID: $(SpokeSubId)
           ARM_USE_AZUREAD: 'true'
 
       - bash: |
