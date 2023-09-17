@@ -6,12 +6,14 @@ parameters:
     type: string
     default: 'kv-cscot-uks-prd-mgmt-01'
   - name: poolName
+    displayName: "Azure Pipelines Pool Name"
     type: string
     default: 'CyberScotAzdoPrdMgmtPool'
     values:
       - 'Azure Pipelines'
       - 'CyberScotAzdoPrdMgmtPool'
   - name: vmImage
+    displayName: "Azure Pipelines VM image - not needed for self-hosted"
     type: string
     default: 'ubuntu-latest'
 
