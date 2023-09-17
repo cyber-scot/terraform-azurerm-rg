@@ -10,6 +10,7 @@ jobs:
     name: 'Terraform Apply'
     runs-on: ubuntu-latest
     env:
+      project_name: "test-build"
       working_directory: examples/standard
       TF_VAR_short: "cscot"
       TF_VAR_env: "prd"
